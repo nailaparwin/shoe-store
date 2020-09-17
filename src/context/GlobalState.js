@@ -113,17 +113,25 @@ export const GlobalProvider = ({ children }) => {
             })
         }
 
-        function searchPrice(p1, p2, brandValue){
-            console.log('initialState', initialState);
+        function searchPrice(p1, p2, brandValue){            
             dispatch({
                 type: 'search_price', 
                 payload: [p1, p2, initialState, brandValue]
             })
         }
+
+        function resetShoesList(){            
+            dispatch({
+                type: 'reset_shoeslist', 
+                payload: [initialState]
+            })
+        }
+        
     return (
         <GlobalContext.Provider value={          
                 {                    
                     ShoesList: state.ShoesList, 
+                    resetShoesList,
                     searchBrand, 
                     searchPrice
                 }            

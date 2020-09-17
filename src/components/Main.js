@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from 'react';
+import React, { useContext, useState, useRef, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -34,25 +34,32 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Main() {
-  
-
+  const [refresh, setRefresh] = useState(true);
   const [brandValue, setBrandValue] = useState('');
   const [priceRange, setPriceRange] = useState([0,1000]);
   const { searchBrand, searchPrice } = useContext(GlobalContext);
-  const { ShoesList } = useContext(GlobalContext);
+  const { ShoesList, resetShoesList } = useContext(GlobalContext);
   const classes = useStyles();
+  
+  if (brandValue === '' && priceRange[0] === 0 && priceRange[1] === 1000 && refresh)
+  {
+    setRefresh(false)
+    resetShoesList();
+    console.log('shoelist', ShoesList)
+    
+  }
   
   const listBrands = [
     { label: "Adidas", value: "Adidas", key:1 },
     { label: "New Balance", value: "New Balance", key:2 },
-    { label: "Nike", value: "Nike", key:3 },
+    //{ label: "Nike", value: "Nike", key:3 },
     
   ];
 
   const listPrice = [
-    { label: "< $300",  value1: 0, value2: 300, key:4 },
-    { label: "$300-$500", value1: 300, value2: 500, key:5 },
-    { label: "$500-$1000", value1: 500, value2: 1000, key:6 },
+    { label: "< $300",  value1: 0, value2: 300, key:4, value:0 },
+    { label: "$300-$500", value1: 300, value2: 500, key:5, value:300 },
+    { label: "$500-$1000", value1: 500, value2: 1000, key:6, value:500 },
     
   ];
 
@@ -70,8 +77,10 @@ export default function Main() {
   }
 
   console.log('brandValue',brandValue)
+  console.log('brandValue',priceRange)
   const vidRef = useRef(null);
   //vidRef.current.play();
+  
 
   return (
     
@@ -83,16 +92,7 @@ export default function Main() {
             <Grid item xs={12}>
             <h3 style={{color: 'orange'}}> Search by Brand</h3>
             <hr></hr>
-            {/* <Select width="200px" id="search" 
-            onChange={(e) => {
-              console.log(e)
-              console.log(e.selectedIndex)
-              setBrandValue(e.options[e.selectedIndex].value)
-              }}>
-            <option value="Adidas" selected="">Adidas</option>
-            <option value="New Collection" >New Collection</option>
-            <option value="Nike" >Nike</option>
-            </Select> */}
+            
             <Select  onChange={ (e)=> (e) ? handleChange(e.value) : handleChange('')} options={ listBrands } key={listBrands.key} isClearable={'true'} />
             </Grid >
             <br></br>

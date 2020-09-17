@@ -36,6 +36,7 @@ export default function Detail(){
     const { id } = useParams();
     //const product = ShoesList[id-1]
     const product = ShoesList.filter(shoe => shoe.id.toString() === id.toString())[0]
+    console.log('product', product)
     /* console.log('product', product)
     let product = null;
     function findProduct() {        
