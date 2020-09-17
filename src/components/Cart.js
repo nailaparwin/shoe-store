@@ -73,6 +73,7 @@ export default function Cart(props) {
   }; */
 
   const handleClose = () => {
+    setScroll(scroll)
     setOpen(false);
     props.toggle();
   };

@@ -7,7 +7,6 @@ import Grid from '@material-ui/core/Grid';
 //import Paper from '@material-ui/core/Paper';
 import Alert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
     
@@ -51,11 +50,12 @@ export default function Detail(){
     findProduct();     */
     const  [productImage, setProductImage] = useState( product.image )    
     const classes = useStyles();
-    const { cartItems, addCart, updateTotalItems, TotalItems } = useContext(CartContext);    
+    const { cartItems, addCart, updateTotalItems } = useContext(CartContext);    
     const [open, setOpen ]= useState(false);
 
     function ifItemExist(val){
         let found = false;
+        // eslint-disable-next-line
         cartItems.find(function(item, index) {            
             if(item.id === val){            
                 found = true;}
